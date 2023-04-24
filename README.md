@@ -66,4 +66,4 @@ el siguiente comando
 ### Resultado
 El resutlado final es que podemos hacer la petición desde la dirección definina
 por ingress
-![success](https://raw.githubusercontent.com/Fairbrook/kubernetes/main/imgs/success.png)
+![success](https://raw.githubusercontent.com/Fairbrook/kubernetes/main/imgs/sucess.png)

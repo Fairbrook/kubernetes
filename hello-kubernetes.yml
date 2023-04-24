@@ -1,0 +1,44 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: hello-kind-app
+  labels:
+    app: hello-kind-app
+spec:
+  containers:
+  - name: hello-container
+    image: hello:1.0
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: hello-service
+spec:
+  selector:
+    app: hello-kind-app
+  ports:
+  # Default port used by the image
+  - port: 8090
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-ingress
+  annotations:
+    #    nginx.ingress.kubernetes.io/rewrite-target: /
+     nginx.ingress.kubernetes.io/rewrite-target: /$2
+    #nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    # ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+   - http:
+      paths:
+      - pathType: Prefix
+        path: /kubernetes(/|$)(.*)
+        backend:
+          service:
+            name: hello-service
+            port:
+              number: 8090
+---
